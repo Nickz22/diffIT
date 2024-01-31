@@ -1,0 +1,24 @@
+.dummy{
+	color : black;
+}
+.disabled {
+	opacity: 1;
+  	pointer-events:none;
+}
+.background-green{
+	background-color: rgba(177,223,207,255);
+}
+.button-color{
+	--sds-c-button-brand-color-background : black;
+	--sds-c-button-radius-border: 0rem;
+}
+.no-border-radius{
+	--slds-c-input-radius-border: 0rem;
+}
+.text-black{
+	color: black;
+}
+.customRadioCls .slds-form-element__control .slds-radio
+{
+    display: inline-block !important;
+}

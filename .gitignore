@@ -1,0 +1,2 @@
+# don't commit any sfdx config
+.sfdx/*

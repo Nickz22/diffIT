@@ -1,0 +1,203 @@
+<template>
+  <div class="slds-m-bottom_small">
+    <img class="slds-size_xx-small" alt="Compnay logo" src={companyLogo} />
+  </div>
+  <div
+    class="slds-align_absolute-center slds-text-heading_large slds-m-bottom_medium"
+  >
+    <h1>
+      <a class="text-black" onclick={navigateToSite}
+        >{label.RequestQouteLabel}</a
+      >
+    </h1>
+  </div>
+  <div class="slds-grid">
+    <div class="slds-col slds-size_3-of-10">
+      <span> </span>
+    </div>
+    <div class="slds-col slds-size_2-of-5 background-green font-poppins">
+      <div class="slds-box">
+        <div class="slds-grid slds-p-right_x-small">
+          <div
+            class="slds-size_1-of-2 slds-m-right_x-small slds-m-bottom_x-small"
+          >
+            <div>{constants.FIRST_NAME}</div>
+            <lightning-input
+              class="form-element no-border-radius"
+              type="text"
+              name="FirstName"
+              variant="label-hidden"
+            >
+            </lightning-input>
+          </div>
+          <div class="slds-size_1-of-2 slds-m-bottom_x-small">
+            <div>{constants.LAST_NAME}</div>
+            <lightning-input
+              class="form-element no-border-radius"
+              type="text"
+              name="LastName"
+              variant="label-hidden"
+            >
+            </lightning-input>
+          </div>
+        </div>
+        <div class="slds-m-bottom_x-small">
+          <div>{constants.EMAIL}</div>
+          <lightning-input
+            class="form-element no-border-radius"
+            type="email"
+            name="Email"
+            variant="label-hidden"
+          >
+          </lightning-input>
+        </div>
+        <div class="slds-m-bottom_x-small">
+			<div>{constants.ROLE}</div>
+			<lightning-combobox
+				name="Role__c"
+				class="form-element"
+				variant="label-hidden"
+				options={roleOptions}
+				onchange={handleChange}
+			></lightning-combobox>
+        </div>
+		<div if:true={isOtherRoleSelected} class="slds-m-bottom_x-small">
+			<div>{constants.OTHER_ROLE_LABEL}</div>
+			<lightning-input
+				class="form-element no-border-radius"
+				name="Form_Submission_Role_Other_Details__c"
+				type="text"
+				variant="label-hidden"
+			></lightning-input>
+		</div>
+        <div class="slds-m-bottom_x-small">
+          <div>{constants.REGION}</div>
+          <lightning-combobox
+            name="Region__c"
+            class="form-element"
+            variant="label-hidden"
+            options={regionOptions}
+            onchange={handleChange}
+          >
+          </lightning-combobox>
+        </div>
+        <div if:true={isRegionInternational} class="slds-m-bottom_x-small">
+          <div>{constants.CITY}</div>
+          <lightning-input
+            class="form-element no-border-radius"
+            name="MailingCity"
+            type="text"
+            variant="label-hidden"
+          ></lightning-input>
+        </div>
+        <div if:true={isRegionInternational} class="slds-m-bottom_x-small">
+          <div>{constants.COUNTRY}</div>
+          <lightning-input
+            class="form-element no-border-radius"
+            name="MailingCountry"
+            type="text"
+            variant="label-hidden"
+          ></lightning-input>
+        </div>
+        <div class="slds-m-bottom_x-small">
+          <div>{constants.SCHOOL_OPTIONS}</div>
+          <lightning-radio-group
+            name="Contract_Type__c"
+            class="form-element customRadioCls"
+            type="radio"
+            variant="label-hidden"
+            options={schoolOptions}
+            value={schoolRadioValue}
+            onchange={handleChange}
+          >
+          </lightning-radio-group>
+        </div>
+		<div if:true={isSingleSchool} class="slds-m-bottom_x-small">
+			<div>{constants.ZIPCODE_LABEL}</div>
+			<lightning-input type="text" class="form-element no-border-radius" variant="label-hidden" pattern="[0-9]{5}" onchange={validateZipChange}>
+			</lightning-input>
+		</div>
+		
+
+        <div if:true={showLookup} class="slds-m-bottom_x-small">
+          <div>{lookupLabel}</div>
+          <c-lwc-lookup class="disabled"
+            object-api-name="account"
+            icon-name="standard:account"
+            onrecordselection={onAccountSelection}
+            institutions={institutions}
+			coordinates={zipResponse}
+          >
+          </c-lwc-lookup>
+          <a if:true={isSingleSchoolSelected} onclick={handleSchoolEnrollment}
+            >Don’t see your school?</a
+          >
+        </div>
+        <div if:true={showEnrollment} class="slds-m-bottom_x-small">
+          <div>{constants.SCHOOL_NAME}</div>
+          <lightning-input
+            data-id="School name"
+            class="form-element no-border-radius"
+            name="School_Name__c"
+            type="text"
+            variant="label-hidden"
+          >
+          </lightning-input>
+        </div>
+        <div if:true={showEnrollment} class="slds-m-bottom_x-small">
+          <div>{constants.SCHOOL_ENROLLMENT}</div>
+          <lightning-input
+            data-id="School enrollment"
+            class="form-element no-border-radius"
+            name="Form_Submission_School_Enrollment__c"
+            type="text"
+            variant="label-hidden"
+          >
+          </lightning-input>
+        </div>
+        <div if:true={showPurchaseOptions} class="slds-m-bottom_x-small">
+          <div>{constants.PURCHASE_OPTIONS}</div>
+          <lightning-combobox
+            name="purchase"
+            class="no-border-radius"
+            variant="label-hidden"
+            options={purchaseOptions}
+            onchange={handleChange}
+          ></lightning-combobox>
+        </div>
+        <div if:true={showSchoolsCount} class="slds-m-bottom_x-small">
+          <div>{constants.SCHOOL_COUNT}</div>
+          <lightning-input
+            data-id="School Count"
+            name="Form_Submission_Number_of_Schools__c"
+            class="form-element no-border-radius"
+            type="number"
+            variant="label-hidden"
+          >
+          </lightning-input>
+        </div>
+        <div if:true={showSchoolsCount} class="slds-m-bottom_x-small">
+          <lightning-textarea
+            class="form-element"
+            name="Form_Submission_Addtional_Info__c"
+            label={constants.ADDITIONAL_INFORMATION}
+          ></lightning-textarea>
+        </div>
+        <div class="slds-align_absolute-center slds-m-top_small">
+          <lightning-button
+            class="button-color"
+            variant="brand"
+            label="Save"
+            title="Save"
+            onclick={saveLead}
+          >
+            Save
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+    <div class="slds-col slds-size_3-of-10">
+      <span></span>
+    </div>
+  </div>
+</template>
