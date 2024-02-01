@@ -6,13 +6,13 @@ const getConstants = () =>{
     FIRST_NAME : 'First Name',
     LAST_NAME : 'Last Name',
     EMAIL : 'Email',
-    ROLE:'Role',
-    SCHOOL_OPTIONS:'Are you looking to Purchase For:-',
+    ROLE:'What is your Role',
+    SCHOOL_OPTIONS:'What are you looking to Purchase For?',
     CITY:'City',
-    SCHOOL_ENROLLMENT:'Enter School Enrollments',
+    SCHOOL_ENROLLMENT:'What is your school enrollment?',
     PURCHASE_OPTIONS:'Are you purchasing for an entire district or certain schools?',
     SCHOOL_COUNT:'How many schools?',
-    SEARCH_SCHOOL:'Search School',
+    SEARCH_SCHOOL:'Search for your school',
     SEARCH_DISTRICT:'Search District',
     SCHOOL:'School',
     DISTRICT:'District',
@@ -36,7 +36,7 @@ const getConstants = () =>{
     OTHER:'Other',
     ROLE_API:'Role__c',
     OTHER_ROLE_LABEL:'What is your role?',
-    ZIPCODE_LABEL:'What is the school’s zip code?'
+    ZIPCODE_LABEL:'What is your zip code?'
   }
 }
 
