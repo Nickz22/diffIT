@@ -1,15 +1,19 @@
 public class ContactService {
   public static void createRecord(Contact contactRecord) {
-    Boolean hasEmail = String.isBlank(contactRecord.Email);
+    Boolean hasEmail = String.isNotBlank(contactRecord.Email);
     Contact c;
 
     if (hasEmail) {
       // get existing contact
-      Contact c = [
+      List<Contact> singleContact = [
         SELECT Id, Email
         FROM Contact
         WHERE Email = :contactRecord.Email
+        LIMIT 1
       ];
+      if(!singleContact.isEmpty()){
+        c = singleContact[0];
+      }
     }
 
     if (c != null) {
