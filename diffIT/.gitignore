@@ -6,6 +6,9 @@
 build.properties
 config
 
+.sfdx
+node_modules
+
 # Apex Log as optional
 apex-scripts/log
 

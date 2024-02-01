@@ -1,2 +1,4 @@
 # don't commit any sfdx config
-.sfdx/*
+.sfdx
+
+node_modules
