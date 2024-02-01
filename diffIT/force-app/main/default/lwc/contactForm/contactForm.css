@@ -8,6 +8,14 @@
 .background-green{
 	background-color: rgba(177,223,207,255);
 }
+.diffIT-button{
+	line-height: normal;
+	border-style: solid;
+	padding: 1rem 1rem;
+	font-size: 1rem;
+	font-weight: 400;
+	letter-spacing: .1em;
+}
 .button-color{
 	--sds-c-button-brand-color-background : black;
 	--sds-c-button-radius-border: 0rem;
@@ -18,6 +26,18 @@
 .text-black{
 	color: black;
 }
+.font-poppins{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+}
+
+.slds-grid div{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 300;
+}
+
 .customRadioCls .slds-form-element__control .slds-radio
 {
     display: inline-block !important;
