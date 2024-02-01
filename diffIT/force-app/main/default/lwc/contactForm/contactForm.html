@@ -1,14 +1,14 @@
 <template>
   <div class="slds-m-bottom_small">
-    <img class="slds-size_xx-small" alt="Compnay logo" src={companyLogo} />
+    <a onclick={navigateToSite}>
+      <img class="slds-size_xx-small" alt="Company logo" src={companyLogo}
+    /></a>
   </div>
   <div
     class="slds-align_absolute-center slds-text-heading_large slds-m-bottom_medium"
   >
     <h1>
-      <a class="text-black" onclick={navigateToSite}
-        >{label.RequestQouteLabel}</a
-      >
+      <p class="text-black font-poppins">{label.RequestQouteLabel}</p>
     </h1>
   </div>
   <div class="slds-grid">
@@ -52,24 +52,24 @@
           </lightning-input>
         </div>
         <div class="slds-m-bottom_x-small">
-			<div>{constants.ROLE}</div>
-			<lightning-combobox
-				name="Role__c"
-				class="form-element"
-				variant="label-hidden"
-				options={roleOptions}
-				onchange={handleChange}
-			></lightning-combobox>
+          <div>{constants.ROLE}</div>
+          <lightning-combobox
+            name="Role__c"
+            class="form-element"
+            variant="label-hidden"
+            options={roleOptions}
+            onchange={handleChange}
+          ></lightning-combobox>
         </div>
-		<div if:true={isOtherRoleSelected} class="slds-m-bottom_x-small">
-			<div>{constants.OTHER_ROLE_LABEL}</div>
-			<lightning-input
-				class="form-element no-border-radius"
-				name="Form_Submission_Role_Other_Details__c"
-				type="text"
-				variant="label-hidden"
-			></lightning-input>
-		</div>
+        <div if:true={isOtherRoleSelected} class="slds-m-bottom_x-small">
+          <div>{constants.OTHER_ROLE_LABEL}</div>
+          <lightning-input
+            class="form-element no-border-radius"
+            name="Form_Submission_Role_Other_Details__c"
+            type="text"
+            variant="label-hidden"
+          ></lightning-input>
+        </div>
         <div class="slds-m-bottom_x-small">
           <div>{constants.REGION}</div>
           <lightning-combobox
@@ -112,21 +112,27 @@
           >
           </lightning-radio-group>
         </div>
-		<div if:true={isSingleSchool} class="slds-m-bottom_x-small">
-			<div>{constants.ZIPCODE_LABEL}</div>
-			<lightning-input type="text" class="form-element no-border-radius" variant="label-hidden" pattern="[0-9]{5}" onchange={validateZipChange}>
-			</lightning-input>
-		</div>
-		
+        <div if:true={isSingleSchool} class="slds-m-bottom_x-small">
+          <div>{constants.ZIPCODE_LABEL}</div>
+          <lightning-input
+            type="text"
+            class="form-element no-border-radius"
+            variant="label-hidden"
+            pattern="[0-9]{5}"
+            onchange={validateZipChange}
+          >
+          </lightning-input>
+        </div>
 
         <div if:true={showLookup} class="slds-m-bottom_x-small">
           <div>{lookupLabel}</div>
-          <c-lwc-lookup class="disabled"
+          <c-lwc-lookup
+            class="disabled"
             object-api-name="account"
             icon-name="standard:account"
             onrecordselection={onAccountSelection}
             institutions={institutions}
-			coordinates={zipResponse}
+            coordinates={zipResponse}
           >
           </c-lwc-lookup>
           <a if:true={isSingleSchoolSelected} onclick={handleSchoolEnrollment}
@@ -184,15 +190,12 @@
           ></lightning-textarea>
         </div>
         <div class="slds-align_absolute-center slds-m-top_small">
-          <lightning-button
-            class="button-color"
-            variant="brand"
-            label="Save"
-            title="Save"
+          <button
+            class="slds-button slds-button_brand button-color diffIT-button"
             onclick={saveLead}
           >
-            Save
-          </lightning-button>
+            Submit
+          </button>
         </div>
       </div>
     </div>
