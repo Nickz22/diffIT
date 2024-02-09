@@ -169,7 +169,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
       case CONSTANTS.REGION_API:
         this.selectedRegion = event.target.value;
         break;
-      case CONSTANTS.CONTRACT_TYPE:
+      case CONSTANTS.FORM_SUBMISSION_CONTRACT_TYPE:
         this.schoolRadioValue = event.target.value;
         this.isSingleSchool ? this.template.querySelector('c-lwc-lookup')?.classList.add('disabled') : this.template.querySelector('c-lwc-lookup')?.classList.remove('disabled');
         this.validateForm();
