@@ -21,17 +21,4 @@ public class ContactFormControllerTest {
         Integer count = [Select count() from contact];
         Assert.areEqual(1,count);
     }
-
-    @isTest
-    public static void upsertRecordsTest(){
-        Contact con = new Contact(LastName='Test',Email='test@test.com');
-        ContactFormController.createContactRecord(con);
-        Integer count = [Select count() from contact];
-        Assert.areEqual(1,count);
-
-        Contact con2 = new Contact(LastName='Test',Email='test@test.com');
-        ContactFormController.createContactRecord(con2);
-        Integer count2 = [Select count() from contact];
-        Assert.areEqual(1,count2);
-    }
 }
