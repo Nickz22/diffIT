@@ -22,6 +22,7 @@ const getConstants = () =>{
     PRIVATE_SCHOOL:'Private School',
     PUBLIC_DISTRICT:'Public District',
     CONTRACT_TYPE:'Contract_Type__c',
+    FORM_SUBMISSION_CONTRACT_TYPE : "Form_Submission_Contract_Type__c",
     MAILING_CITY:'MailingCity',
     ENTIRE_DISTRICT:'Entire District',
     ACCOUNT_ID:'AccountId',

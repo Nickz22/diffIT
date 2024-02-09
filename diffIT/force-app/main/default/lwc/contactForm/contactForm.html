@@ -102,7 +102,7 @@
         <div class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_OPTIONS}</div>
           <lightning-radio-group
-            name="Contract_Type__c"
+            name="Form_Submission_Contract_Type__c"
             class="form-element customRadioCls"
             type="radio"
             variant="label-hidden"
@@ -115,6 +115,7 @@
         <div if:true={isSingleSchool} class="slds-m-bottom_x-small">
           <div>{constants.ZIPCODE_LABEL}</div>
           <lightning-input
+            name="MailingPostalCode"
             type="text"
             class="form-element no-border-radius"
             variant="label-hidden"
