@@ -35,10 +35,22 @@
 .slds-grid div{
 	font-family: 'Poppins', sans-serif;
 	font-style: normal;
-	font-weight: 300;
+	font-weight: 400;
+	font-size: large;
 }
 
 .customRadioCls .slds-form-element__control .slds-radio
 {
     display: inline-block !important;
+}
+
+/**
+ * text area labels work a little differently than input labels
+ */
+.diffIT-text-area{
+	margin-top: -1.1rem;
+}
+
+.school-search-table > p{
+	margin-top: 1.5rem;
 }
