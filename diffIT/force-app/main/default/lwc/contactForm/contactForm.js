@@ -22,6 +22,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   formValues = {};
   showEnrollment = false;
   showPurchaseOptions = false;
+  showAccountError = false;
   purchaseType;
   selectedRegion;
   zipResponse;
@@ -110,6 +111,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
     this.showPurchaseOptions = this.checkForMultipleSchool ? true : false;
     if(this.accountRecordId){
       this.showEnrollment = false;
+      this.showAccountError = false;
     }
   }
   connectedCallback() {
@@ -134,20 +136,31 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   }
   async saveLead() {
     try {
-      const inputValues = this.template.querySelectorAll(".form-element");
-      inputValues.forEach((element) => {
-        const label = element.name;
-        const value = element.value;
-        this.formValues[label] = value;
-      });
-      await createRecord({ contactRecord: this.formValues });
-      const event = new ShowToastEvent({
-        title: "Success",
-        message: "Record created successfully!",
-        variant: "success"
-      });
-      this.dispatchEvent(event);
-      window.location.reload();
+      //validate input
+      const allValid = [
+        ...this.template.querySelectorAll('.form-element'),
+      ].reduce((validSoFar, inputCmp) => {
+          inputCmp.reportValidity();
+          return validSoFar && inputCmp.checkValidity();
+      }, true);
+      this.showAccountError = (this.accountRecordId == null && !this.showEnrollment);
+      //end validate input
+      if(allValid && !this.showAccountError){
+        const inputValues = this.template.querySelectorAll(".form-element");
+        inputValues.forEach((element) => {
+          const label = element.name;
+          const value = element.value;
+          this.formValues[label] = value;
+        });
+        await createRecord({ contactRecord: this.formValues });
+        const event = new ShowToastEvent({
+          title: "Success",
+          message: "Record created successfully!",
+          variant: "success"
+        });
+        this.dispatchEvent(event);
+        window.location.reload();
+      }
     } catch (ex) {
       console.error(ex);
     }

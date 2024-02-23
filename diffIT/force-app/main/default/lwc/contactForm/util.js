@@ -26,8 +26,8 @@ const getConstants = () =>{
     MAILING_CITY:'MailingCity',
     ENTIRE_DISTRICT:'Entire District',
     ACCOUNT_ID:'AccountId',
-    USA:'USA',
-    INTERNATIONAL:'International',
+    USA:'United States',
+    INTERNATIONAL:'Outside of the U.S.',
     REGION:'Location',
     REGION_API:'Region__c',
     COUNTRY:'Country',
@@ -39,7 +39,10 @@ const getConstants = () =>{
     OTHER:'Other',
     ROLE_API:'Role__c',
     OTHER_ROLE_LABEL:'What is your role?',
-    ZIPCODE_LABEL:'What is your zip code?'
+    ZIPCODE_LABEL:'What is your zip code?',
+    ZIPCODE_ERROR_MESSAGE:'Please enter a valid zip code',
+    EMAIL_ERROR_MESSAGE:'Please enter a valid email address',
+    EMPTY_ACCOUNT_ERROR_MESSAGE:'Please select a school'
   }
 }
 

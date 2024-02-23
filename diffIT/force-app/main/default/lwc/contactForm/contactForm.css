@@ -39,6 +39,10 @@
 	font-size: large;
 }
 
+.error-text{
+	font-size: 0.75rem !important;
+}
+
 .customRadioCls .slds-form-element__control .slds-radio
 {
     display: inline-block !important;

@@ -27,6 +27,7 @@
               type="text"
               name="FirstName"
               variant="label-hidden"
+              required
             >
             </lightning-input>
           </div>
@@ -37,6 +38,7 @@
               type="text"
               name="LastName"
               variant="label-hidden"
+              required
             >
             </lightning-input>
           </div>
@@ -48,6 +50,9 @@
             type="email"
             name="Email"
             variant="label-hidden"
+            required
+            pattern=".+@.+\.[\w\d]+"
+            message-when-pattern-mismatch={constants.EMAIL_ERROR_MESSAGE}
           >
           </lightning-input>
         </div>
@@ -59,6 +64,7 @@
             variant="label-hidden"
             options={roleOptions}
             onchange={handleChange}
+            required
           ></lightning-combobox>
         </div>
         <div if:true={isOtherRoleSelected} class="slds-m-bottom_x-small">
@@ -68,6 +74,7 @@
             name="Form_Submission_Role_Other_Details__c"
             type="text"
             variant="label-hidden"
+            required
           ></lightning-input>
         </div>
         <div class="slds-m-bottom_x-small">
@@ -89,6 +96,7 @@
             name="MailingCity"
             type="text"
             variant="label-hidden"
+            required
           ></lightning-input>
         </div>
         <div if:true={isRegionInternational} class="slds-m-bottom_x-small">
@@ -98,6 +106,7 @@
             name="MailingCountry"
             type="text"
             variant="label-hidden"
+            required
           ></lightning-input>
         </div>
         <div class="slds-m-bottom_x-small">
@@ -121,7 +130,9 @@
             class="form-element no-border-radius"
             variant="label-hidden"
             pattern="[0-9]{5}"
+            message-when-pattern-mismatch={constants.ZIPCODE_ERROR_MESSAGE}
             onchange={validateZipChange}
+            required
           >
           </lightning-input>
         </div>
@@ -140,6 +151,9 @@
             coordinates={zipResponse}
           >
           </c-lwc-lookup>
+          <div if:true={showAccountError} class="school-name-error error-text slds-text-color_error">
+            {constants.EMPTY_ACCOUNT_ERROR_MESSAGE}
+          </div>
           <p>
             <a if:true={isSingleSchoolSelected} onclick={handleSchoolEnrollment}
               >Don’t see your school?</a
@@ -154,6 +168,7 @@
             name="School_Name__c"
             type="text"
             variant="label-hidden"
+            required
           >
           </lightning-input>
         </div>
@@ -174,6 +189,7 @@
             name="MailingCity"
             type="text"
             variant="label-hidden"
+            required
           >
           </lightning-input>
           <div>{constants.SCHOOL_STATE}</div>
@@ -183,6 +199,7 @@
             name="MailingState"
             type="text"
             variant="label-hidden"
+            required
           >
           </lightning-input>
         </div>
@@ -190,13 +207,14 @@
           <div>{constants.PURCHASE_OPTIONS}</div>
           <lightning-combobox
             name="purchase"
-            class="no-border-radius"
+            class="no-border-radius form-element"
             variant="label-hidden"
             options={purchaseOptions}
             onchange={handleChange}
+            required
           ></lightning-combobox>
         </div>
-        <div class="slds-m-bottom_x-small">
+        <div if:true={showPurchaseOptions} class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_COUNT}</div>
           <lightning-input
             data-id="School Count"
@@ -207,7 +225,7 @@
           >
           </lightning-input>
         </div>
-        <div class="slds-m-bottom_x-small">
+        <div if:true={showPurchaseOptions} class="slds-m-bottom_x-small">
           <div>{constants.ADDITIONAL_INFORMATION}</div>
           <lightning-textarea
             class="form-element diffIT-text-area"
