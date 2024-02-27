@@ -23,6 +23,10 @@
 .no-border-radius{
 	--slds-c-input-radius-border: 0rem;
 }
+h1{
+	font-size: 1.2em;
+	margin-bottom: 0.5rem;
+}
 .text-black{
 	color: black;
 }
@@ -39,8 +43,16 @@
 	font-size: large;
 }
 
+.form-element{
+	margin-bottom: 1rem;
+}
+
 .error-text{
 	font-size: 0.75rem !important;
+}
+
+.error-text-hidden{
+	display: none !important;
 }
 
 .customRadioCls .slds-form-element__control .slds-radio

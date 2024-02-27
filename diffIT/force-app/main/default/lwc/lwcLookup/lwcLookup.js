@@ -25,7 +25,8 @@ export default class LwcLookup extends LightningElement {
   clearSelection(){
     this.selectedRecordId = "";
     this.selectedValue = "";
-    this.searchKey = "";  
+    this.searchKey = "";
+    this.recordsList = null;  
   }
     
   onRecordSelection(event) {  
@@ -50,7 +51,7 @@ export default class LwcLookup extends LightningElement {
             this.searchKey = searchKey;
             this.getLookupResult();
         }
-    }, 1000);
+    }, 500);
 }
    
   removeRecordOnLookup(event) {  

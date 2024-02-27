@@ -159,20 +159,14 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
           variant: "success"
         });
         this.dispatchEvent(event);
-        window.location.reload();
+        this.navigateToSite();
       }
     } catch (ex) {
       console.error(ex);
     }
   }
   navigateToSite() {
-    const config = {
-      type: "standard__webPage",
-      attributes: {
-        url: "https://web.diffit.me/"
-      }
-    };
-    this[NavigationMixin.Navigate](config);
+    window.location.assign("https://web.diffit.me/quote-request-received-thank-you");
   }
   handleChange(event) {
     switch (event.target.name) {

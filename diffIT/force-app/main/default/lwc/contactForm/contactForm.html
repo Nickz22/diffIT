@@ -60,7 +60,7 @@
           <div>{constants.ROLE}</div>
           <lightning-combobox
             name="Role__c"
-            class="form-element"
+            class="form-element dropdown"
             variant="label-hidden"
             options={roleOptions}
             onchange={handleChange}
@@ -203,17 +203,6 @@
             required
           >
           </lightning-input>
-        </div>
-        <div if:true={showPurchaseOptions} class="slds-m-bottom_x-small">
-          <div>{constants.PURCHASE_OPTIONS}</div>
-          <lightning-combobox
-            name="purchase"
-            class="no-border-radius form-element"
-            variant="label-hidden"
-            options={purchaseOptions}
-            onchange={handleChange}
-            required
-          ></lightning-combobox>
         </div>
         <div if:true={showPurchaseOptions} class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_COUNT}</div>
