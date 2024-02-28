@@ -26,7 +26,7 @@ export default class LwcLookup extends LightningElement {
     this.selectedRecordId = "";
     this.selectedValue = "";
     this.searchKey = "";
-    this.recordsList = null;  
+    this.recordsList = null;
   }
     
   onRecordSelection(event) {  
