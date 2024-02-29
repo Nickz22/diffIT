@@ -48,7 +48,7 @@ export default class LwcLookup extends LightningElement {
     // Set a new timeout
     this.timeoutId = setTimeout(() => {
         if (searchKey.length >= 3) {
-            this.searchKey = searchKey;
+            this.searchKey = searchKey.trim();
             this.getLookupResult();
         }
     }, 500);
