@@ -3,14 +3,14 @@
 */
 const getConstants = () =>{
    return {
-    FIRST_NAME : 'First Name',
-    LAST_NAME : 'Last Name',
+    FIRST_NAME : 'First name',
+    LAST_NAME : 'Last name',
     EMAIL : 'Email',
-    ROLE:'What is your Role',
-    SCHOOL_OPTIONS:'What are you looking to Purchase For?',
+    ROLE:'Role',
+    SCHOOL_OPTIONS:'Do you need a quote for your school, or the district?',
     CITY:'City',
     SCHOOL_ENROLLMENT:'What is your school enrollment?',
-    PURCHASE_OPTIONS:'Are you purchasing for an entire district or certain schools?',
+    PURCHASE_OPTIONS:'Do you need a quote for the entire district or just certain schools?',
     SCHOOL_COUNT:'How many schools?',
     SEARCH_SCHOOL:'Search for your school',
     SEARCH_DISTRICT:'Search District',
@@ -26,18 +26,23 @@ const getConstants = () =>{
     MAILING_CITY:'MailingCity',
     ENTIRE_DISTRICT:'Entire District',
     ACCOUNT_ID:'AccountId',
-    USA:'USA',
-    INTERNATIONAL:'International',
-    REGION:'Region',
+    USA:'United States',
+    INTERNATIONAL:'Outside of the U.S.',
+    REGION:'Location',
     REGION_API:'Region__c',
     COUNTRY:'Country',
     SCHOOL_NAME:'School Name',
-    ADDITIONAL_INFORMATION:'Anything else you want us to know?',
+    SCHOOL_CITY: 'School City',
+    SCHOOL_STATE: 'School State',
+    ADDITIONAL_INFORMATION:'Anything else you\'d like to share?',
     PURCHASE:'purchase',
     OTHER:'Other',
     ROLE_API:'Role__c',
     OTHER_ROLE_LABEL:'What is your role?',
-    ZIPCODE_LABEL:'What is your zip code?'
+    ZIPCODE_LABEL:'What is your zip code?',
+    ZIPCODE_ERROR_MESSAGE:'Please enter a valid zip code',
+    EMAIL_ERROR_MESSAGE:'Please enter a valid email address',
+    EMPTY_ACCOUNT_ERROR_MESSAGE:'Please select a school'
   }
 }
 

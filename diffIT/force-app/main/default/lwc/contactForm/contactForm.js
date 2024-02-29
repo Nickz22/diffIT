@@ -22,6 +22,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   formValues = {};
   showEnrollment = false;
   showPurchaseOptions = false;
+  showAccountError = false;
   purchaseType;
   selectedRegion;
   zipResponse;
@@ -110,6 +111,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
     this.showPurchaseOptions = this.checkForMultipleSchool ? true : false;
     if(this.accountRecordId){
       this.showEnrollment = false;
+      this.showAccountError = false;
     }
   }
   connectedCallback() {
@@ -134,32 +136,37 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   }
   async saveLead() {
     try {
-      const inputValues = this.template.querySelectorAll(".form-element");
-      inputValues.forEach((element) => {
-        const label = element.name;
-        const value = element.value;
-        this.formValues[label] = value;
-      });
-      await createRecord({ contactRecord: this.formValues });
-      const event = new ShowToastEvent({
-        title: "Success",
-        message: "Record created successfully!",
-        variant: "success"
-      });
-      this.dispatchEvent(event);
-      window.location.reload();
+      //validate input
+      const allValid = [
+        ...this.template.querySelectorAll('.form-element'),
+      ].reduce((validSoFar, inputCmp) => {
+          inputCmp.reportValidity();
+          return validSoFar && inputCmp.checkValidity();
+      }, true);
+      this.showAccountError = (this.accountRecordId == null && !this.showEnrollment);
+      //end validate input
+      if(allValid && !this.showAccountError){
+        const inputValues = this.template.querySelectorAll(".form-element");
+        inputValues.forEach((element) => {
+          const label = element.name;
+          const value = element.value;
+          this.formValues[label] = value;
+        });
+        await createRecord({ contactRecord: this.formValues });
+        const event = new ShowToastEvent({
+          title: "Success",
+          message: "Record created successfully!",
+          variant: "success"
+        });
+        this.dispatchEvent(event);
+        this.navigateToSite();
+      }
     } catch (ex) {
       console.error(ex);
     }
   }
   navigateToSite() {
-    const config = {
-      type: "standard__webPage",
-      attributes: {
-        url: "https://web.diffit.me/"
-      }
-    };
-    this[NavigationMixin.Navigate](config);
+    window.location.assign("https://web.diffit.me/quote-request-received-thank-you");
   }
   handleChange(event) {
     switch (event.target.name) {
@@ -170,9 +177,9 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
         this.selectedRegion = event.target.value;
         break;
       case CONSTANTS.FORM_SUBMISSION_CONTRACT_TYPE:
+        this.validateForm();
         this.schoolRadioValue = event.target.value;
         this.isSingleSchool ? this.template.querySelector('c-lwc-lookup')?.classList.add('disabled') : this.template.querySelector('c-lwc-lookup')?.classList.remove('disabled');
-        this.validateForm();
         break;
       case CONSTANTS.ROLE_API:
         this.isOtherRoleSelected = (event.target.value === CONSTANTS.OTHER);

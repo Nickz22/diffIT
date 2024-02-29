@@ -12,6 +12,7 @@ export default class LwcLookup extends LightningElement {
   @track message;  
   @api institutions;
   @api coordinates;
+  lookupDebounceTimeoutId;
     
   onLeave(event) {  
    setTimeout(() => {  
@@ -24,7 +25,8 @@ export default class LwcLookup extends LightningElement {
   clearSelection(){
     this.selectedRecordId = "";
     this.selectedValue = "";
-    this.searchKey = "";  
+    this.searchKey = "";
+    this.recordsList = null;
   }
     
   onRecordSelection(event) {  
@@ -34,13 +36,23 @@ export default class LwcLookup extends LightningElement {
    this.onSeletedRecordUpdate();  
   }  
    
-  handleKeyChange(event) {  
-   const searchKey = event.target.value;
-   if(searchKey.length>=3){
-       this.searchKey = searchKey;  
-       this.getLookupResult();  
-   } 
-  }  
+  handleKeyChange(event) {
+    console.log('keyChange', event.target.value);
+    const searchKey = event.target.value;
+
+    // Clear the existing timeout on each key press
+    if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+    }
+
+    // Set a new timeout
+    this.timeoutId = setTimeout(() => {
+        if (searchKey.length >= 3) {
+            this.searchKey = searchKey;
+            this.getLookupResult();
+        }
+    }, 500);
+}
    
   removeRecordOnLookup(event) {  
    this.searchKey = "";  

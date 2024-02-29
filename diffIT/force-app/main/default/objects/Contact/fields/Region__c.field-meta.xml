@@ -11,14 +11,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>USA</fullName>
+                <fullName>United States</fullName>
                 <default>false</default>
-                <label>USA</label>
+                <label>United States</label>
             </value>
             <value>
-                <fullName>International</fullName>
+                <fullName>Outside of the U.S.</fullName>
                 <default>false</default>
-                <label>International</label>
+                <label>Outside of the U.S.</label>
             </value>
         </valueSetDefinition>
     </valueSet>

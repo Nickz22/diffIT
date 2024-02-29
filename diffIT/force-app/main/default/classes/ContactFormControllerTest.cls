@@ -18,7 +18,7 @@ public class ContactFormControllerTest {
     public static void createRecordsTest(){
         Contact con = new Contact(LastName='Test');
         ContactFormController.createContactRecord(con);
-        Integer count = [Select count() from contact];
-        Assert.areEqual(1,count);
+        con = [Select Quote_Request_Date__c from contact];
+        System.assertEquals(con.Quote_Request_Date__c, Date.today());   
     }
 }

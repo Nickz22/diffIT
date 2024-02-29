@@ -15,7 +15,7 @@
     <div class="slds-col slds-size_3-of-10">
       <span> </span>
     </div>
-    <div class="slds-col slds-size_2-of-5 background-green font-poppins">
+    <div class="slds-col slds-size_5-of-5 slds-large-size_2-of-5 background-green font-poppins">
       <div class="slds-box">
         <div class="slds-grid slds-p-right_x-small">
           <div
@@ -27,6 +27,7 @@
               type="text"
               name="FirstName"
               variant="label-hidden"
+              required
             >
             </lightning-input>
           </div>
@@ -37,6 +38,7 @@
               type="text"
               name="LastName"
               variant="label-hidden"
+              required
             >
             </lightning-input>
           </div>
@@ -48,6 +50,9 @@
             type="email"
             name="Email"
             variant="label-hidden"
+            required
+            pattern=".+@.+\.[\w\d]+"
+            message-when-pattern-mismatch={constants.EMAIL_ERROR_MESSAGE}
           >
           </lightning-input>
         </div>
@@ -55,10 +60,11 @@
           <div>{constants.ROLE}</div>
           <lightning-combobox
             name="Role__c"
-            class="form-element"
+            class="form-element dropdown"
             variant="label-hidden"
             options={roleOptions}
             onchange={handleChange}
+            required
           ></lightning-combobox>
         </div>
         <div if:true={isOtherRoleSelected} class="slds-m-bottom_x-small">
@@ -68,6 +74,7 @@
             name="Form_Submission_Role_Other_Details__c"
             type="text"
             variant="label-hidden"
+            required
           ></lightning-input>
         </div>
         <div class="slds-m-bottom_x-small">
@@ -78,6 +85,7 @@
             variant="label-hidden"
             options={regionOptions}
             onchange={handleChange}
+            value="United States"
           >
           </lightning-combobox>
         </div>
@@ -88,6 +96,7 @@
             name="MailingCity"
             type="text"
             variant="label-hidden"
+            required
           ></lightning-input>
         </div>
         <div if:true={isRegionInternational} class="slds-m-bottom_x-small">
@@ -97,6 +106,7 @@
             name="MailingCountry"
             type="text"
             variant="label-hidden"
+            required
           ></lightning-input>
         </div>
         <div class="slds-m-bottom_x-small">
@@ -120,12 +130,17 @@
             class="form-element no-border-radius"
             variant="label-hidden"
             pattern="[0-9]{5}"
+            message-when-pattern-mismatch={constants.ZIPCODE_ERROR_MESSAGE}
             onchange={validateZipChange}
+            required
           >
           </lightning-input>
         </div>
 
-        <div if:true={showLookup} class="slds-m-bottom_x-small">
+        <div
+          if:true={showLookup}
+          class="slds-m-bottom_x-small school-search-table"
+        >
           <div>{lookupLabel}</div>
           <c-lwc-lookup
             class="disabled"
@@ -136,9 +151,14 @@
             coordinates={zipResponse}
           >
           </c-lwc-lookup>
-          <a if:true={isSingleSchoolSelected} onclick={handleSchoolEnrollment}
-            >Don’t see your school?</a
-          >
+          <div if:true={showAccountError} class="school-name-error error-text slds-text-color_error">
+            {constants.EMPTY_ACCOUNT_ERROR_MESSAGE}
+          </div>
+          <p>
+            <a if:true={isSingleSchoolSelected} onclick={handleSchoolEnrollment}
+              >Don’t see your school?</a
+            >
+          </p>
         </div>
         <div if:true={showEnrollment} class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_NAME}</div>
@@ -148,6 +168,7 @@
             name="School_Name__c"
             type="text"
             variant="label-hidden"
+            required
           >
           </lightning-input>
         </div>
@@ -156,23 +177,34 @@
           <lightning-input
             data-id="School enrollment"
             class="form-element no-border-radius"
-            name="Form_Submission_School_Enrollment__c"
+            name="Form_Submission_Student_Enrollment__c"
             type="text"
             variant="label-hidden"
+            required
+          >
+          </lightning-input>
+          <div>{constants.SCHOOL_CITY}</div>
+          <lightning-input
+            data-id="School City"
+            class="form-element no-border-radius"
+            name="MailingCity"
+            type="text"
+            variant="label-hidden"
+            required
+          >
+          </lightning-input>
+          <div>{constants.SCHOOL_STATE}</div>
+          <lightning-input
+            data-id="School State"
+            class="form-element no-border-radius"
+            name="MailingState"
+            type="text"
+            variant="label-hidden"
+            required
           >
           </lightning-input>
         </div>
         <div if:true={showPurchaseOptions} class="slds-m-bottom_x-small">
-          <div>{constants.PURCHASE_OPTIONS}</div>
-          <lightning-combobox
-            name="purchase"
-            class="no-border-radius"
-            variant="label-hidden"
-            options={purchaseOptions}
-            onchange={handleChange}
-          ></lightning-combobox>
-        </div>
-        <div if:true={showSchoolsCount} class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_COUNT}</div>
           <lightning-input
             data-id="School Count"
@@ -180,14 +212,15 @@
             class="form-element no-border-radius"
             type="number"
             variant="label-hidden"
+            required
           >
           </lightning-input>
         </div>
-        <div if:true={showSchoolsCount} class="slds-m-bottom_x-small">
+        <div if:true={showPurchaseOptions} class="slds-m-bottom_x-small">
+          <div>{constants.ADDITIONAL_INFORMATION}</div>
           <lightning-textarea
-            class="form-element"
+            class="form-element diffIT-text-area"
             name="Form_Submission_Addtional_Info__c"
-            label={constants.ADDITIONAL_INFORMATION}
           ></lightning-textarea>
         </div>
         <div class="slds-align_absolute-center slds-m-top_small">
@@ -195,7 +228,7 @@
             class="slds-button slds-button_brand button-color diffIT-button"
             onclick={saveLead}
           >
-            Submit
+            Get Quote
           </button>
         </div>
       </div>
