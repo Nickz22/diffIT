@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Role__c</fullName>
+    <fullName>District_Type__c</fullName>
+    <description>Imported from NCES database</description>
     <externalId>false</externalId>
-    <label>Role</label>
+    <label>District Type</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
@@ -11,47 +12,49 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Teacher</fullName>
+                <fullName>Charter</fullName>
                 <default>false</default>
-                <label>Teacher</label>
+                <label>Charter</label>
             </value>
             <value>
-                <fullName>Coach</fullName>
+                <fullName>Component</fullName>
                 <default>false</default>
-                <label>Coach</label>
+                <label>Component</label>
             </value>
             <value>
-                <fullName>Principal</fullName>
+                <fullName>Federal</fullName>
                 <default>false</default>
-                <label>Principal</label>
+                <label>Federal</label>
             </value>
             <value>
-                <fullName>District Leader</fullName>
+                <fullName>Regional (RESA)</fullName>
                 <default>false</default>
-                <label>District Leader</label>
+                <label>Regional (RESA)</label>
+            </value>
+            <value>
+                <fullName>Regular Local</fullName>
+                <default>false</default>
+                <label>Regular Local</label>
+            </value>
+            <value>
+                <fullName>Specialized</fullName>
+                <default>false</default>
+                <label>Specialized</label>
+            </value>
+            <value>
+                <fullName>State</fullName>
+                <default>false</default>
+                <label>State</label>
+            </value>
+            <value>
+                <fullName>Supervisory Union</fullName>
+                <default>false</default>
+                <label>Supervisory Union</label>
             </value>
             <value>
                 <fullName>Other</fullName>
                 <default>false</default>
                 <label>Other</label>
-            </value>
-            <value>
-                <fullName>Department Chair</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Department Chair</label>
-            </value>
-            <value>
-                <fullName>District Administrator</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>District Administrator</label>
-            </value>
-            <value>
-                <fullName>School Administrator</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>School Administrator</label>
             </value>
         </valueSetDefinition>
     </valueSet>

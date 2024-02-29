@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Form_Submission_Contract_Type__c</fullName>
-    <description>Populates from form submission.</description>
+    <fullName>District_Status__c</fullName>
+    <description>Imported from NCES database</description>
     <externalId>false</externalId>
-    <label>Form Submission: Contract Type</label>
+    <label>District Status</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
@@ -12,31 +12,34 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>School</fullName>
+                <fullName>Added</fullName>
                 <default>false</default>
-                <label>School</label>
+                <label>Added</label>
             </value>
             <value>
-                <fullName>District</fullName>
+                <fullName>Changed Boundary</fullName>
                 <default>false</default>
-                <label>District</label>
+                <label>Changed Boundary</label>
             </value>
             <value>
-                <fullName>Other</fullName>
+                <fullName>Future</fullName>
                 <default>false</default>
-                <label>Other</label>
+                <label>Future</label>
             </value>
             <value>
-                <fullName>Multiple Schools</fullName>
+                <fullName>New</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
-                <label>Multiple Schools</label>
+                <label>New</label>
             </value>
             <value>
-                <fullName>One School</fullName>
+                <fullName>Open</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
-                <label>One School</label>
+                <label>Open</label>
+            </value>
+            <value>
+                <fullName>Reopened</fullName>
+                <default>false</default>
+                <label>Reopened</label>
             </value>
         </valueSetDefinition>
     </valueSet>

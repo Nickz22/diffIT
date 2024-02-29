@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>School_Name__c</fullName>
+    <description>Populated by form if the submitter is not able to find their school in the dropdown.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Populated by form if the submitter is not able to find their school in the dropdown.</inlineHelpText>
     <label>School Name</label>
     <length>255</length>
     <required>false</required>

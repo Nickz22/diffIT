@@ -20,6 +20,18 @@
                 <default>false</default>
                 <label>Outside of the U.S.</label>
             </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>USA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>USA</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
