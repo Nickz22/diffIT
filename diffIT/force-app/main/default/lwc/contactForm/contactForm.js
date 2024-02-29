@@ -122,12 +122,10 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
     this.showPurchaseOptions = false;
     if (this.schoolRadioValue == CONSTANTS.SCHOOL) {
       this.institutions = [
-        CONSTANTS.PUBLIC_SCHOOL,
-        CONSTANTS.CHARTER_SCHOOL,
-        CONSTANTS.PRIVATE_SCHOOL
+        CONSTANTS.SCHOOL_TYPE
       ];
     } else {
-      this.institutions = [CONSTANTS.PUBLIC_DISTRICT];
+      this.institutions = [CONSTANTS.DISTRICT_TYPE];
     }
     this.template.querySelector("c-lwc-lookup")?.clearSelection();
   }

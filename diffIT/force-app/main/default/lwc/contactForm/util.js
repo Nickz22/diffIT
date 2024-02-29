@@ -20,6 +20,8 @@ const getConstants = () =>{
     PUBLIC_SCHOOL:'Public School',
     CHARTER_SCHOOL:'Charter School',
     PRIVATE_SCHOOL:'Private School',
+    SCHOOL_TYPE:'School',
+    DISTRICT_TYPE:'District',
     PUBLIC_DISTRICT:'Public District',
     CONTRACT_TYPE:'Contract_Type__c',
     FORM_SUBMISSION_CONTRACT_TYPE : "Form_Submission_Contract_Type__c",
