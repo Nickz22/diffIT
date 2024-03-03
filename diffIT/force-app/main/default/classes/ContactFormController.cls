@@ -2,7 +2,7 @@ public class ContactFormController {
     @AuraEnabled(cacheable=false)  
     public static List<sobject> findRecords(String searchKey, String objectName, List<String> institutions, GeoLocationAPIRespWrapper.Coordinates coordinates ) {  
         String searchText = '\'%' + String.escapeSingleQuotes(searchKey) + '%\'';  
-        String query = 'SELECT Id, Name FROM ' +objectName+ ' WHERE Name LIKE '+searchText + ' AND Institution__c IN :institutions';
+        String query = 'SELECT Id, Name FROM ' +objectName+ ' WHERE Name LIKE '+searchText + ' AND Type IN :institutions';
         if(coordinates!=null && coordinates.lat != null && coordinates.lng != null){
             query = query + ' AND DISTANCE(BillingAddress, GEOLOCATION('+coordinates.lat+', '+coordinates.lng+'), \'mi\') < 60';
         }  
