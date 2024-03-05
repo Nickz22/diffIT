@@ -1,9 +1,9 @@
 @isTest
 public class ContactFormControllerTest {
-    public static string institution = Account.Institution__c.getDescribe().getPicklistValues()[0].getValue();
+    public static string institution = Account.Type.getDescribe().getPicklistValues()[0].getValue();
 	@testSetup
     public static void createAccount(){
-        Account acc = new Account(name='Test Account',Institution__c=institution,BillingCity='NY', BillingPostalCode='10012', BillingLatitude = 34.0522, BillingLongitude = -118.24368);
+        Account acc = new Account(name='Test Account',Type=institution,BillingCity='NY', BillingPostalCode='10012', BillingLatitude = 34.0522, BillingLongitude = -118.24368);
         insert acc;
     }
     @isTest
