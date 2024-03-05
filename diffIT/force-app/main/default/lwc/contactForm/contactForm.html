@@ -110,19 +110,6 @@
           ></lightning-input>
         </div>
         <div class="slds-m-bottom_x-small">
-          <div>{constants.SCHOOL_OPTIONS}</div>
-          <lightning-radio-group
-            name="Form_Submission_Contract_Type__c"
-            class="form-element customRadioCls"
-            type="radio"
-            variant="label-hidden"
-            options={schoolOptions}
-            value={schoolRadioValue}
-            onchange={handleChange}
-          >
-          </lightning-radio-group>
-        </div>
-        <div class="slds-m-bottom_x-small">
           <div>{constants.ZIPCODE_LABEL}</div>
           <lightning-input
             name="MailingPostalCode"
@@ -135,6 +122,19 @@
             required
           >
           </lightning-input>
+        </div>
+        <div class="slds-m-bottom_x-small">
+          <div>{constants.SCHOOL_OPTIONS}</div>
+          <lightning-radio-group
+            name="Form_Submission_Contract_Type__c"
+            class="form-element customRadioCls"
+            type="radio"
+            variant="label-hidden"
+            options={schoolOptions}
+            value={schoolRadioValue}
+            onchange={handleChange}
+          >
+          </lightning-radio-group>
         </div>
 
         <div
