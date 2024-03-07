@@ -6,7 +6,7 @@ public class ContactFormController {
         if(coordinates!=null && coordinates.lat != null && coordinates.lng != null){
             query = query + ' AND DISTANCE(BillingAddress, GEOLOCATION('+coordinates.lat+', '+coordinates.lng+'), \'mi\') < 60';
         }  
-        query = query + ' LIMIT 6';
+        query = query + ' LIMIT 50';
         return Database.query(query);  
     }
     @AuraEnabled(cacheable=false)
