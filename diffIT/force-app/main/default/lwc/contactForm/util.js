@@ -30,7 +30,7 @@ const getConstants = () =>{
     ACCOUNT_ID:'AccountId',
     USA:'United States',
     INTERNATIONAL:'Outside of the U.S.',
-    REGION:'Location',
+    REGION:'Country',
     REGION_API:'Region__c',
     COUNTRY:'Country',
     SCHOOL_NAME:'School Name',
