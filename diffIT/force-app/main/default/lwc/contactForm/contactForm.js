@@ -151,12 +151,6 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
           this.formValues[label] = value;
         });
         await createRecord({ contactRecord: this.formValues });
-        const event = new ShowToastEvent({
-          title: "Success",
-          message: "Record created successfully!",
-          variant: "success"
-        });
-        this.dispatchEvent(event);
         this.navigateToSite();
       }
     } catch (ex) {
@@ -178,6 +172,13 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
         this.validateForm();
         this.schoolRadioValue = event.target.value;
         this.isSingleSchool ? this.template.querySelector('c-lwc-lookup')?.classList.add('disabled') : this.template.querySelector('c-lwc-lookup')?.classList.remove('disabled');
+        this.zipCode = this.template.querySelector('.zipcode-field').value;
+        //make sure school search is not disabled if zip code is filled in when contract type is changed
+        if(/^(\d{5})$/.test(this.zipCode)){
+          this.template.querySelector('c-lwc-lookup').classList.remove('disabled');
+        }else{
+          this.template.querySelector('c-lwc-lookup').classList.add('disabled');
+        }
         break;
       case CONSTANTS.ROLE_API:
         this.isOtherRoleSelected = (event.target.value === CONSTANTS.OTHER);
