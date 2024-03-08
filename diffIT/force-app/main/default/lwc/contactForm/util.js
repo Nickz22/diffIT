@@ -11,7 +11,7 @@ const getConstants = () =>{
     CITY:'City',
     SCHOOL_ENROLLMENT:'What is your school enrollment?',
     PURCHASE_OPTIONS:'Do you need a quote for the entire district or just certain schools?',
-    SCHOOL_COUNT:'How many schools?',
+    SCHOOL_COUNT:'How many schools do you need a quote for?',
     SEARCH_SCHOOL:'Search for your school',
     SEARCH_DISTRICT:'Search District',
     SCHOOL:'School',
