@@ -1,7 +1,7 @@
 public class ContactFormController { 
     @AuraEnabled(cacheable=true)  
     public static List<sobject> findRecords(String objectName, List<String> institutions, GeoLocationAPIRespWrapper.Coordinates coordinates ) {  
-        String query = 'SELECT Id, Name FROM ' +objectName+ ' WHERE Type IN :institutions';
+        String query = 'SELECT Id, Name, BillingCity, BillingState FROM ' +objectName+ ' WHERE Type IN :institutions';
         if(coordinates!=null && coordinates.lat != null && coordinates.lng != null){
             query = query + ' AND DISTANCE(BillingAddress, GEOLOCATION('+coordinates.lat+', '+coordinates.lng+'), \'mi\') < 60';
         }  

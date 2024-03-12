@@ -2,11 +2,13 @@ import { LightningElement, api, track, wire } from "lwc";
 import findRecords from "@salesforce/apex/ContactFormController.findRecords";
 
 export default class SchoolTable extends LightningElement {
-  columns = [{ label: "Name", fieldName: "Name" }];
+  columns = [{ label: "Name", fieldName: "Name" },
+  { label: "City", fieldName: "BillingCity" },
+  { label: "State", fieldName: "BillingState" }];
   @api institutions;
   @api objectApiName;
   @api coordinates;
-  @track recordsList;
+  @track records;
   @track filteredRecords = [];
 
   get doesRecordExists(){
@@ -20,8 +22,8 @@ export default class SchoolTable extends LightningElement {
   })
   getSchoolData({error,data}){
     if(data){
-      this.recordsList = data;
-      this.filteredRecords = [...this.recordsList];
+      this.records = data;
+      this.filteredRecords = [...this.records];
     }
     if(error){
       console.error(error);
@@ -29,9 +31,9 @@ export default class SchoolTable extends LightningElement {
   }
   
   handleSchoolSearch(event) {
-    let searchString = event.target.value;
-    this.filteredRecords = this.recordsList.filter((ele) => {
-      return ele.Name?.toLowerCase().includes(searchString?.toLowerCase());
+    const searchString = event.target.value;
+    this.filteredRecords = this.records.filter((r) => {
+      return r.Name?.toLowerCase().includes(searchString?.toLowerCase());
     });
   }
   getSelectedAccount(event) {
