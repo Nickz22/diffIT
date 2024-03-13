@@ -21,6 +21,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   companyLogo = IMAGE;
   formValues = {};
   showEnrollment = false;
+  showDistrictEnrollment = false;
   showPurchaseOptions = false;
   showAccountError = false;
   purchaseType;
@@ -119,6 +120,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   }
   validateForm() {
     this.showEnrollment = false;
+    this.showDistrictEnrollment = false;
     this.showPurchaseOptions = false;
     if (this.schoolRadioValue == CONSTANTS.SCHOOL) {
       this.institutions = [
@@ -131,6 +133,11 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   }
   handleSchoolEnrollment(evt) {
     this.showEnrollment = true;
+    this.showDistrictEnrollment = false;
+  }
+  handleDistrictEnrollment(evt){
+    this.showDistrictEnrollment = true;
+    this.showEnrollment = false;
   }
   async saveLead() {
     try {
@@ -141,7 +148,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
           inputCmp.reportValidity();
           return validSoFar && inputCmp.checkValidity();
       }, true);
-      this.showAccountError = (this.accountRecordId == null && !this.showEnrollment);
+      this.showAccountError = (this.accountRecordId == null && !this.showEnrollment && !this.showDistrictEnrollment);
       //end validate input
       if(allValid && !this.showAccountError){
         const inputValues = this.template.querySelectorAll(".form-element");

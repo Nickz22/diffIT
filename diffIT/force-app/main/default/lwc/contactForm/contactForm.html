@@ -155,9 +155,12 @@
             {constants.EMPTY_ACCOUNT_ERROR_MESSAGE}
           </div>
           <p>
-            <a if:true={isSingleSchoolSelected} onclick={handleSchoolEnrollment}
+            <a lwc:if={isSingleSchoolSelected} onclick={handleSchoolEnrollment}
               >Don’t see your school?</a
             >
+            <a lwc:else onclick={handleDistrictEnrollment}>
+              Don’t see your district?
+            </a>
           </p>
         </div>
         <div if:true={showEnrollment} class="slds-m-bottom_x-small">
@@ -196,6 +199,50 @@
           <div>{constants.SCHOOL_STATE}</div>
           <lightning-input
             data-id="School State"
+            class="form-element no-border-radius"
+            name="MailingState"
+            type="text"
+            variant="label-hidden"
+            required
+          >
+          </lightning-input>
+        </div>
+        <div if:true={showDistrictEnrollment} class="slds-m-bottom_x-small">
+          <div>{constants.DISTRICT_NAME}</div>
+          <lightning-input
+            data-id="District name"
+            class="form-element no-border-radius"
+            name="School_Name__c"
+            type="text"
+            variant="label-hidden"
+            required
+          >
+          </lightning-input>
+        </div>
+        <div if:true={showDistrictEnrollment} class="slds-m-bottom_x-small">
+          <div>{constants.DISTRICT_ENROLLMENT}</div>
+          <lightning-input
+            data-id="Number of schools"
+            class="form-element no-border-radius"
+            name="Form_Submission_Number_of_Schools__c"
+            type="text"
+            variant="label-hidden"
+            required
+          >
+          </lightning-input>
+          <div>{constants.DISTRICT_CITY}</div>
+          <lightning-input
+            data-id="District City"
+            class="form-element no-border-radius"
+            name="MailingCity"
+            type="text"
+            variant="label-hidden"
+            required
+          >
+          </lightning-input>
+          <div>{constants.DISTRICT_STATE}</div>
+          <lightning-input
+            data-id="District State"
             class="form-element no-border-radius"
             name="MailingState"
             type="text"
