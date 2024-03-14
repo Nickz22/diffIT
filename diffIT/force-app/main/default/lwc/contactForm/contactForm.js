@@ -25,9 +25,8 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   showAccountError = false;
   purchaseType;
   selectedRegion;
-  zipResponse;
+  @track zipResponse;
   @track zipCode;
-  @track accountName;
   @track accountRecordId;
   @track disableSchoolList = true;
   @track cityOptions = [];
@@ -104,16 +103,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   get isRegionInternational() {
     return this.selectedRegion === CONSTANTS.INTERNATIONAL;
   }
-  onAccountSelection(event) {
-    this.accountName = event.detail.selectedValue;
-    this.accountRecordId = event.detail.selectedRecordId;
-    this.formValues[CONSTANTS.ACCOUNT_ID] = this.accountRecordId;
-    this.showPurchaseOptions = this.checkForMultipleSchool ? true : false;
-    if(this.accountRecordId){
-      this.showEnrollment = false;
-      this.showAccountError = false;
-    }
-  }
+  
   connectedCallback() {
     this.schoolRadioValue = CONSTANTS.SCHOOL;
   }
@@ -127,7 +117,6 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
     } else {
       this.institutions = [CONSTANTS.DISTRICT_TYPE];
     }
-    this.template.querySelector("c-lwc-lookup")?.clearSelection();
   }
   handleSchoolEnrollment(evt) {
     this.showEnrollment = true;
@@ -151,12 +140,6 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
           this.formValues[label] = value;
         });
         await createRecord({ contactRecord: this.formValues });
-        const event = new ShowToastEvent({
-          title: "Success",
-          message: "Record created successfully!",
-          variant: "success"
-        });
-        this.dispatchEvent(event);
         this.navigateToSite();
       }
     } catch (ex) {
@@ -177,7 +160,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
       case CONSTANTS.FORM_SUBMISSION_CONTRACT_TYPE:
         this.validateForm();
         this.schoolRadioValue = event.target.value;
-        this.isSingleSchool ? this.template.querySelector('c-lwc-lookup')?.classList.add('disabled') : this.template.querySelector('c-lwc-lookup')?.classList.remove('disabled');
+        this.zipCode = this.template.querySelector('.zipcode-field').value;
         break;
       case CONSTANTS.ROLE_API:
         this.isOtherRoleSelected = (event.target.value === CONSTANTS.OTHER);
@@ -185,15 +168,21 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
         break;
     }
   }
-
   async validateZipChange(event) {
     this.zipCode = event.target.value;
-    this.template.querySelector('c-lwc-lookup').clearSelection();
     if(/^(\d{5})$/.test(this.zipCode)){
-      this.template.querySelector('c-lwc-lookup').classList.remove('disabled');
        this.zipResponse = await getZipCodeCoordinates({zipCode:this.zipCode});
     }else{
-      this.template.querySelector('c-lwc-lookup').classList.add('disabled');
+      this.zipResponse = null;
+    }
+  }
+  handleAccountSelection(event) {
+    this.accountRecordId = event.detail;
+    this.formValues[CONSTANTS.ACCOUNT_ID] = this.accountRecordId;
+    this.showPurchaseOptions = this.checkForMultipleSchool ? true : false;
+    if(this.accountRecordId){
+      this.showEnrollment = false;
+      this.showAccountError = false;
     }
   }
 }

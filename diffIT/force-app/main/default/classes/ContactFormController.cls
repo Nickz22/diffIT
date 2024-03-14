@@ -1,12 +1,10 @@
 public class ContactFormController { 
-    @AuraEnabled(cacheable=false)  
-    public static List<sobject> findRecords(String searchKey, String objectName, List<String> institutions, GeoLocationAPIRespWrapper.Coordinates coordinates ) {  
-        String searchText = '\'%' + String.escapeSingleQuotes(searchKey) + '%\'';  
-        String query = 'SELECT Id, Name FROM ' +objectName+ ' WHERE Name LIKE '+searchText + ' AND Type IN :institutions';
+    @AuraEnabled(cacheable=true)  
+    public static List<sobject> findRecords(String objectName, List<String> institutions, GeoLocationAPIRespWrapper.Coordinates coordinates ) {  
+        String query = 'SELECT Id, Name, BillingCity, BillingState FROM ' +objectName+ ' WHERE Type IN :institutions';
         if(coordinates!=null && coordinates.lat != null && coordinates.lng != null){
             query = query + ' AND DISTANCE(BillingAddress, GEOLOCATION('+coordinates.lat+', '+coordinates.lng+'), \'mi\') < 60';
         }  
-        query = query + ' LIMIT 6';
         return Database.query(query);  
     }
     @AuraEnabled(cacheable=false)

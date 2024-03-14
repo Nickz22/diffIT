@@ -109,20 +109,7 @@
             required
           ></lightning-input>
         </div>
-        <div class="slds-m-bottom_x-small">
-          <div>{constants.ZIPCODE_LABEL}</div>
-          <lightning-input
-            name="MailingPostalCode"
-            type="text"
-            class="form-element no-border-radius"
-            variant="label-hidden"
-            pattern="[0-9]{5}"
-            message-when-pattern-mismatch={constants.ZIPCODE_ERROR_MESSAGE}
-            onchange={validateZipChange}
-            required
-          >
-          </lightning-input>
-        </div>
+        
         <div class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_OPTIONS}</div>
           <lightning-radio-group
@@ -136,21 +123,28 @@
           >
           </lightning-radio-group>
         </div>
-
+        <div class="slds-m-bottom_x-small">
+          <div>{constants.ZIPCODE_LABEL}</div>
+          <lightning-input
+            name="MailingPostalCode"
+            type="text"
+            class="form-element no-border-radius zipcode-field"
+            variant="label-hidden"
+            pattern="[0-9]{5}"
+            message-when-pattern-mismatch={constants.ZIPCODE_ERROR_MESSAGE}
+            onchange={validateZipChange}
+            required
+          >
+          </lightning-input>
+        </div>
         <div
           if:true={showLookup}
           class="slds-m-bottom_x-small school-search-table"
         >
-          <div>{lookupLabel}</div>
-          <c-lwc-lookup
-            class="disabled"
-            object-api-name="account"
-            icon-name="standard:account"
-            onrecordselection={onAccountSelection}
-            institutions={institutions}
-            coordinates={zipResponse}
-          >
-          </c-lwc-lookup>
+          <template if:true={zipResponse}>
+            <c-school-table institutions={institutions} onrecordselection={handleAccountSelection}
+          coordinates={zipResponse} object-api-name="account"></c-school-table>
+          </template>
           <div if:true={showAccountError} class="school-name-error error-text slds-text-color_error">
             {constants.EMPTY_ACCOUNT_ERROR_MESSAGE}
           </div>
