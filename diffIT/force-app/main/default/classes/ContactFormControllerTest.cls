@@ -11,7 +11,7 @@ public class ContactFormControllerTest {
         GeoLocationAPIRespWrapper.Coordinates coordinatesWrap = new GeoLocationAPIRespWrapper.Coordinates();
         coordinatesWrap.lat = 34.0522;
         coordinatesWrap.lng = -118.24368;
-        List<sobject> accList = ContactFormController.findRecords('Test','Account',new List<String>{institution}, coordinatesWrap);
+        List<sobject> accList = ContactFormController.findRecords('Account',new List<String>{institution}, coordinatesWrap);
         Assert.areEqual(1,accList.size());
     }
     @isTest
