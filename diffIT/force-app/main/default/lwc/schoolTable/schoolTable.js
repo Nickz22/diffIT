@@ -22,6 +22,7 @@ export default class SchoolTable extends LightningElement {
     institutions: "$institutions",
     coordinates: "$coordinates"
   })
+
   getSchoolData({ error, data }) {
     if (data) {
       this.records = data;
