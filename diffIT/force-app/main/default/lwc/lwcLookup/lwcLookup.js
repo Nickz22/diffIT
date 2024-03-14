@@ -37,7 +37,7 @@ export default class LwcLookup extends LightningElement {
   }
 
   handleKeyChange(event) {
-    this.searchKey = event.target.value.trimStart();
+    this.searchKey = event.target.value.trim();
 
     // Clear the existing timeout on each key press
     if (this.timeoutId) {
