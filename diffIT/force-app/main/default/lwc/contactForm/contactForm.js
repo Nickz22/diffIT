@@ -21,12 +21,14 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   companyLogo = IMAGE;
   formValues = {};
   showEnrollment = false;
+  showDistrictEnrollment = false;
   showPurchaseOptions = false;
   showAccountError = false;
   purchaseType;
   selectedRegion;
-  @track zipResponse;
+  zipResponse;
   @track zipCode;
+  @track accountName;
   @track accountRecordId;
   @track disableSchoolList = true;
   @track cityOptions = [];
@@ -103,12 +105,22 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
   get isRegionInternational() {
     return this.selectedRegion === CONSTANTS.INTERNATIONAL;
   }
-  
+  onAccountSelection(event) {
+    this.accountName = event.detail.selectedValue;
+    this.accountRecordId = event.detail.selectedRecordId;
+    this.formValues[CONSTANTS.ACCOUNT_ID] = this.accountRecordId;
+    this.showPurchaseOptions = this.checkForMultipleSchool ? true : false;
+    if(this.accountRecordId){
+      this.showEnrollment = false;
+      this.showAccountError = false;
+    }
+  }
   connectedCallback() {
     this.schoolRadioValue = CONSTANTS.SCHOOL;
   }
   validateForm() {
     this.showEnrollment = false;
+    this.showDistrictEnrollment = false;
     this.showPurchaseOptions = false;
     if (this.schoolRadioValue == CONSTANTS.SCHOOL) {
       this.institutions = [
@@ -117,9 +129,15 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
     } else {
       this.institutions = [CONSTANTS.DISTRICT_TYPE];
     }
+    this.template.querySelector("c-lwc-lookup")?.clearSelection();
   }
   handleSchoolEnrollment(evt) {
     this.showEnrollment = true;
+    this.showDistrictEnrollment = false;
+  }
+  handleDistrictEnrollment(evt){
+    this.showDistrictEnrollment = true;
+    this.showEnrollment = false;
   }
   async saveLead() {
     try {
@@ -130,7 +148,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
           inputCmp.reportValidity();
           return validSoFar && inputCmp.checkValidity();
       }, true);
-      this.showAccountError = (this.accountRecordId == null && !this.showEnrollment);
+      this.showAccountError = (this.accountRecordId == null && !this.showEnrollment && !this.showDistrictEnrollment);
       //end validate input
       if(allValid && !this.showAccountError){
         const inputValues = this.template.querySelectorAll(".form-element");
@@ -160,7 +178,14 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
       case CONSTANTS.FORM_SUBMISSION_CONTRACT_TYPE:
         this.validateForm();
         this.schoolRadioValue = event.target.value;
+        this.isSingleSchool ? this.template.querySelector('c-lwc-lookup')?.classList.add('disabled') : this.template.querySelector('c-lwc-lookup')?.classList.remove('disabled');
         this.zipCode = this.template.querySelector('.zipcode-field').value;
+        //make sure school search is not disabled if zip code is filled in when contract type is changed
+        if(/^(\d{5})$/.test(this.zipCode)){
+          this.template.querySelector('c-lwc-lookup').classList.remove('disabled');
+        }else{
+          this.template.querySelector('c-lwc-lookup').classList.add('disabled');
+        }
         break;
       case CONSTANTS.ROLE_API:
         this.isOtherRoleSelected = (event.target.value === CONSTANTS.OTHER);
@@ -168,21 +193,15 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
         break;
     }
   }
+
   async validateZipChange(event) {
     this.zipCode = event.target.value;
+    this.template.querySelector('c-lwc-lookup').clearSelection();
     if(/^(\d{5})$/.test(this.zipCode)){
+      this.template.querySelector('c-lwc-lookup').classList.remove('disabled');
        this.zipResponse = await getZipCodeCoordinates({zipCode:this.zipCode});
     }else{
-      this.zipResponse = null;
-    }
-  }
-  handleAccountSelection(event) {
-    this.accountRecordId = event.detail;
-    this.formValues[CONSTANTS.ACCOUNT_ID] = this.accountRecordId;
-    this.showPurchaseOptions = this.checkForMultipleSchool ? true : false;
-    if(this.accountRecordId){
-      this.showEnrollment = false;
-      this.showAccountError = false;
+      this.template.querySelector('c-lwc-lookup').classList.add('disabled');
     }
   }
 }
