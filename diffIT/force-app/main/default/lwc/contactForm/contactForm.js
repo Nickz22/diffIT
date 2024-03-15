@@ -97,13 +97,22 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
     return this.schoolRadioValue === CONSTANTS.DISTRICT;
   }
   get showLookup() {
-    return this.isSingleSchool || this.checkForMultipleSchool;
+    return (this.isSingleSchool || this.checkForMultipleSchool) && this.isRegionUS;
   }
   get showSchoolsCount() {
     return this.purchaseType === CONSTANTS.CERTAIN_SCHOOL;
   }
   get isRegionInternational() {
     return this.selectedRegion === CONSTANTS.INTERNATIONAL;
+  }
+  get isRegionUS(){
+    return this.selectedRegion != CONSTANTS.INTERNATIONAL;
+  }
+  get showEnrollmentOrInternational(){
+    return (this.selectedRegion === this.constants.INTERNATIONAL && this.isSingleSchoolSelected) || this.showEnrollment;
+  }
+  get showDistrictEnrollmentOrInternational(){
+    return (this.selectedRegion === this.constants.INTERNATIONAL && !this.isSingleSchoolSelected) || this.showDistrictEnrollment;
   }
   onAccountSelection(event) {
     this.accountName = event.detail.selectedValue;
@@ -148,7 +157,7 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
           inputCmp.reportValidity();
           return validSoFar && inputCmp.checkValidity();
       }, true);
-      this.showAccountError = (this.accountRecordId == null && !this.showEnrollment && !this.showDistrictEnrollment);
+      this.showAccountError = (this.accountRecordId == null && !this.showEnrollment && !this.showDistrictEnrollment && !this.isRegionInternational);
       //end validate input
       if(allValid && !this.showAccountError){
         const inputValues = this.template.querySelectorAll(".form-element");
@@ -174,6 +183,10 @@ export default class ContactForm extends NavigationMixin(LightningElement) {
         break;
       case CONSTANTS.REGION_API:
         this.selectedRegion = event.target.value;
+        if(this.selectedRegion === this.constants.INTERNATIONAL){
+          this.showEnrollment = false;
+          this.showDistrictEnrollment = false;
+        }
         break;
       case CONSTANTS.FORM_SUBMISSION_CONTRACT_TYPE:
         this.validateForm();

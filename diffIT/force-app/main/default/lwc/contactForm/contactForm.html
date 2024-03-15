@@ -109,7 +109,7 @@
             required
           ></lightning-input>
         </div>
-        <div class="slds-m-bottom_x-small">
+        <div lwc:if={isRegionUS} class="slds-m-bottom_x-small">
           <div>{constants.ZIPCODE_LABEL}</div>
           <lightning-input
             name="MailingPostalCode"
@@ -163,7 +163,7 @@
             </a>
           </p>
         </div>
-        <div if:true={showEnrollment} class="slds-m-bottom_x-small">
+        <div if:true={showEnrollmentOrInternational} class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_NAME}</div>
           <lightning-input
             data-id="School name"
@@ -175,7 +175,7 @@
           >
           </lightning-input>
         </div>
-        <div if:true={showEnrollment} class="slds-m-bottom_x-small">
+        <div if:true={showEnrollmentOrInternational} class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_ENROLLMENT}</div>
           <lightning-input
             data-id="School enrollment"
@@ -186,6 +186,8 @@
             required
           >
           </lightning-input>
+        </div>
+        <div if:true={showEnrollment} class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_CITY}</div>
           <lightning-input
             data-id="School City"
@@ -196,6 +198,8 @@
             required
           >
           </lightning-input>
+        </div>
+        <div if:true={showEnrollment} class="slds-m-bottom_x-small">
           <div>{constants.SCHOOL_STATE}</div>
           <lightning-input
             data-id="School State"
@@ -207,7 +211,7 @@
           >
           </lightning-input>
         </div>
-        <div if:true={showDistrictEnrollment} class="slds-m-bottom_x-small">
+        <div if:true={showDistrictEnrollmentOrInternational} class="slds-m-bottom_x-small">
           <div>{constants.DISTRICT_NAME}</div>
           <lightning-input
             data-id="District name"
@@ -219,7 +223,7 @@
           >
           </lightning-input>
         </div>
-        <div if:true={showDistrictEnrollment} class="slds-m-bottom_x-small">
+        <div if:true={showDistrictEnrollmentOrInternational} class="slds-m-bottom_x-small">
           <div>{constants.DISTRICT_ENROLLMENT}</div>
           <lightning-input
             data-id="Number of schools"
@@ -230,6 +234,8 @@
             required
           >
           </lightning-input>
+        </div>
+        <div if:true={showDistrictEnrollment} class="slds-m-bottom_x-small">
           <div>{constants.DISTRICT_CITY}</div>
           <lightning-input
             data-id="District City"
@@ -240,6 +246,8 @@
             required
           >
           </lightning-input>
+        </div>
+        <div if:true={showDistrictEnrollment} class="slds-m-bottom_x-small">
           <div>{constants.DISTRICT_STATE}</div>
           <lightning-input
             data-id="District State"
